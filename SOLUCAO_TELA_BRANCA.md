@@ -39,8 +39,8 @@
 Na raiz do projeto, crie um arquivo `.env.local` com:
 
 ```env
-REACT_APP_SUPABASE_URL=https://djfkoacmmbdufucriqyd.supabase.co
-REACT_APP_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqZmtvYWNtbWJkdWZ1Y3JpcXlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNzgwMDQsImV4cCI6MjA3NDc1NDAwNH0.mrMw6WjwIc1K7becJK6vSStxynCXsHxYdfZtiNKTzMw
+REACT_APP_SUPABASE_URL=https://seu-projeto.supabase.co
+REACT_APP_SUPABASE_ANON_KEY=sua-chave-anonima-aqui
 REACT_APP_API_URL=supabase
 ```
 

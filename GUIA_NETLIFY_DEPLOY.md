@@ -30,12 +30,12 @@
 
 #### **Adicionar Variável 1:**
 - **Key:** `REACT_APP_SUPABASE_URL`
-- **Value:** `https://djfkoacmmbdufucriqyd.supabase.co`
+- **Value:** `https://seu-projeto.supabase.co`
 - Clique em **"Save"**
 
 #### **Adicionar Variável 2:**
 - **Key:** `REACT_APP_SUPABASE_ANON_KEY`
-- **Value:** `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqZmtvYWNtbWJkdWZ1Y3JpcXlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNzgwMDQsImV4cCI6MjA3NDc1NDAwNH0.mrMw6WjwIc1K7becJK6vSStxynCXsHxYdfZtiNKTzMw`
+- **Value:** `sua-chave-anonima-aqui`
 - Clique em **"Save"**
 
 #### **Adicionar Variável 3:**

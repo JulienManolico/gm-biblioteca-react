@@ -3,8 +3,8 @@
 ## ✅ **Suas Credenciais do Supabase:**
 
 ```
-URL: https://djfkoacmmbdufucriqyd.supabase.co
-ANON KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqZmtvYWNtbWJkdWZ1Y3JpcXlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNzgwMDQsImV4cCI6MjA3NDc1NDAwNH0.mrMw6WjwIc1K7becJK6vSStxynCXsHxYdfZtiNKTzMw
+URL: https://seu-projeto.supabase.co
+ANON KEY: sua-chave-anonima-aqui
 ```
 
 ## 📋 **Passo 1: Configurar Localmente**
@@ -14,8 +14,8 @@ Crie um arquivo chamado `.env.local` na raiz do projeto (mesmo nível do `packag
 
 ```env
 # Configurações do Supabase
-REACT_APP_SUPABASE_URL=https://djfkoacmmbdufucriqyd.supabase.co
-REACT_APP_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqZmtvYWNtbWJkdWZ1Y3JpcXlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNzgwMDQsImV4cCI6MjA3NDc1NDAwNH0.mrMw6WjwIc1K7becJK6vSStxynCXsHxYdfZtiNKTzMw
+REACT_APP_SUPABASE_URL=https://seu-projeto.supabase.co
+REACT_APP_SUPABASE_ANON_KEY=sua-chave-anonima-aqui
 
 # Configurações da aplicação
 REACT_APP_APP_NAME=GMBiblioteca
@@ -43,8 +43,8 @@ npm start
 3. Adicione uma por uma:
 
 ```
-REACT_APP_SUPABASE_URL = https://djfkoacmmbdufucriqyd.supabase.co
-REACT_APP_SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqZmtvYWNtbWJkdWZ1Y3JpcXlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxNzgwMDQsImV4cCI6MjA3NDc1NDAwNH0.mrMw6WjwIc1K7becJK6vSStxynCXsHxYdfZtiNKTzMw
+REACT_APP_SUPABASE_URL = https://seu-projeto.supabase.co
+REACT_APP_SUPABASE_ANON_KEY = sua-chave-anonima-aqui
 REACT_APP_API_URL = supabase
 ```
 

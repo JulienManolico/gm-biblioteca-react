@@ -25,7 +25,7 @@ export const testSupabaseConnection = async () => {
 
   try {
     const { data, error } = await supabase
-      .from('livros')
+      .from('livro')
       .select('count')
       .limit(1);
     

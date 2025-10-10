@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Layout from './components/Layout/Layout';
+import ErrorBoundary from './components/ErrorBoundary';
 import Dashboard from './pages/Dashboard';
 import Livros from './pages/Livros';
 import CadastrarLivro from './pages/CadastrarLivro';
@@ -30,11 +31,12 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <div className="App">
-          <Layout>
-            <Routes>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <div className="App">
+            <Layout>
+              <Routes>
               {/* Rotas principais */}
               <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
@@ -69,11 +71,12 @@ function App() {
               {/* Rotas de Código Postal */}
               <Route path="/codigo-postal" element={<CodigoPostal />} />
               <Route path="/codigo-postal/cadastrar" element={<CadastrarCodigoPostal />} />
-            </Routes>
-          </Layout>
-        </div>
-      </Router>
-    </QueryClientProvider>
+              </Routes>
+            </Layout>
+          </div>
+        </Router>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 

@@ -15,24 +15,39 @@ export const livroSupabaseService = {
 
     try {
       let query = supabase
-        .from('livros')
+        .from('livro')
         .select(`
           *,
-          autores(au_nome),
-          editoras(ed_nome),
-          generos(ge_genero)
+          autor(au_nome, au_pais),
+          editora(ed_nome, ed_pais),
+          genero(ge_genero),
+          livro_exemplar(lex_cod, lex_estado, lex_disponivel)
         `);
 
       // Aplicar filtros
       if (filtros.busca) {
-        query = query.or(`li_titulo.ilike.%${filtros.busca}%,autores.au_nome.ilike.%${filtros.busca}%,generos.ge_genero.ilike.%${filtros.busca}%`);
+        query = query.or(`li_titulo.ilike.%${filtros.busca}%,autor.au_nome.ilike.%${filtros.busca}%,genero.ge_genero.ilike.%${filtros.busca}%`);
       }
 
       const { data, error } = await query;
       
       if (error) throw error;
       
-      return { data };
+      // Transformar dados para compatibilidade com o frontend
+      const livrosTransformados = data?.map(livro => ({
+        li_cod: livro.li_cod,
+        li_titulo: livro.li_titulo,
+        li_ano: livro.li_ano,
+        li_edicao: livro.li_edicao,
+        li_isbn: livro.li_isbn,
+        autor: livro.autor?.au_nome || '',
+        editora: livro.editora?.ed_nome || '',
+        categoria: livro.genero?.ge_genero || '',
+        total_exemplares: livro.livro_exemplar?.length || 0,
+        exemplares_disponiveis: livro.livro_exemplar?.filter(ex => ex.lex_disponivel).length || 0
+      })) || [];
+      
+      return { data: livrosTransformados };
     } catch (error) {
       console.error('Erro ao buscar livros:', error);
       throw error;
@@ -47,19 +62,34 @@ export const livroSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('livros')
+        .from('livro')
         .select(`
           *,
-          autores(au_nome),
-          editoras(ed_nome),
-          generos(ge_genero)
+          autor(au_nome, au_pais),
+          editora(ed_nome, ed_pais),
+          genero(ge_genero),
+          livro_exemplar(lex_cod, lex_estado, lex_disponivel)
         `)
         .eq('li_cod', id)
         .single();
 
       if (error) throw error;
       
-      return { data };
+      // Transformar dados para compatibilidade
+      const livroTransformado = {
+        li_cod: data.li_cod,
+        li_titulo: data.li_titulo,
+        li_ano: data.li_ano,
+        li_edicao: data.li_edicao,
+        li_isbn: data.li_isbn,
+        autor: data.autor?.au_nome || '',
+        editora: data.editora?.ed_nome || '',
+        categoria: data.genero?.ge_genero || '',
+        total_exemplares: data.livro_exemplar?.length || 0,
+        exemplares_disponiveis: data.livro_exemplar?.filter(ex => ex.lex_disponivel).length || 0
+      };
+      
+      return { data: livroTransformado };
     } catch (error) {
       console.error('Erro ao buscar livro:', error);
       throw error;
@@ -142,7 +172,7 @@ export const autorSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('autores')
+        .from('autor')
         .select('*')
         .order('au_nome');
 
@@ -162,7 +192,7 @@ export const autorSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('autores')
+        .from('autor')
         .insert([autorData])
         .select()
         .single();
@@ -186,7 +216,7 @@ export const editoraSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('editoras')
+        .from('editora')
         .select('*')
         .order('ed_nome');
 
@@ -206,7 +236,7 @@ export const editoraSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('editoras')
+        .from('editora')
         .insert([editoraData])
         .select()
         .single();
@@ -230,7 +260,7 @@ export const generoSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('generos')
+        .from('genero')
         .select('*')
         .order('ge_genero');
 
@@ -250,7 +280,7 @@ export const generoSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('generos')
+        .from('genero')
         .insert([generoData])
         .select()
         .single();
@@ -274,7 +304,7 @@ export const utenteSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('utentes')
+        .from('utente')
         .select('*')
         .order('ut_nome');
 
@@ -294,7 +324,7 @@ export const utenteSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('utentes')
+        .from('utente')
         .insert([utenteData])
         .select()
         .single();
@@ -318,17 +348,35 @@ export const emprestimoSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('emprestimos')
+        .from('requisicao')
         .select(`
           *,
-          utentes(ut_nome),
-          livros(li_titulo)
+          utente(ut_nome, ut_email),
+          livro_exemplar(
+            lex_cod,
+            lex_disponivel,
+            livro(li_titulo, li_autor, autor(au_nome))
+          )
         `)
-        .order('em_data', { ascending: false });
+        .order('re_data_requisicao', { ascending: false });
 
       if (error) throw error;
       
-      return { data };
+      // Transformar dados para compatibilidade
+      const emprestimosTransformados = data?.map(emprestimo => ({
+        em_cod: emprestimo.re_cod,
+        em_ut_cod: emprestimo.re_ut_cod,
+        em_lex_cod: emprestimo.re_lex_cod,
+        em_data: emprestimo.re_data_requisicao,
+        em_devolucao_prevista: emprestimo.re_data_devolucao,
+        em_data_devolucao: emprestimo.re_data_devolucao,
+        em_devolvido: !!emprestimo.re_data_devolucao,
+        utente_nome: emprestimo.utente?.ut_nome || '',
+        livro_titulo: emprestimo.livro_exemplar?.livro?.li_titulo || '',
+        autor_nome: emprestimo.livro_exemplar?.livro?.autor?.au_nome || ''
+      })) || [];
+      
+      return { data: emprestimosTransformados };
     } catch (error) {
       console.error('Erro ao buscar empréstimos:', error);
       throw error;
@@ -391,12 +439,13 @@ export const statsSupabaseService = {
 
     try {
       // Buscar contagens em paralelo
-      const [livrosResult, autoresResult, editorasResult, utentesResult, emprestimosResult] = await Promise.all([
-        supabase.from('livros').select('li_cod', { count: 'exact', head: true }),
-        supabase.from('autores').select('au_cod', { count: 'exact', head: true }),
-        supabase.from('editoras').select('ed_cod', { count: 'exact', head: true }),
-        supabase.from('utentes').select('ut_cod', { count: 'exact', head: true }),
-        supabase.from('emprestimos').select('em_cod', { count: 'exact', head: true }).eq('em_devolvido', false)
+      const [livrosResult, autoresResult, editorasResult, utentesResult, emprestimosResult, exemplaresResult] = await Promise.all([
+        supabase.from('livro').select('li_cod', { count: 'exact', head: true }),
+        supabase.from('autor').select('au_cod', { count: 'exact', head: true }),
+        supabase.from('editora').select('ed_cod', { count: 'exact', head: true }),
+        supabase.from('utente').select('ut_cod', { count: 'exact', head: true }),
+        supabase.from('requisicao').select('re_cod', { count: 'exact', head: true }).is('re_data_devolucao', null),
+        supabase.from('livro_exemplar').select('lex_cod', { count: 'exact', head: true }).eq('lex_disponivel', true)
       ]);
 
       const stats = {
@@ -405,7 +454,7 @@ export const statsSupabaseService = {
         totalEditoras: editorasResult.count || 0,
         totalUtentes: utentesResult.count || 0,
         emprestimosAtivos: emprestimosResult.count || 0,
-        livrosDisponiveis: 0 // Será calculado separadamente se necessário
+        livrosDisponiveis: exemplaresResult.count || 0
       };
 
       return { data: stats };
@@ -425,7 +474,7 @@ export const codigoPostalSupabaseService = {
 
     try {
       let query = supabase
-        .from('codigos_postais')
+        .from('codigo_postal')
         .select('*')
         .order('cod_postal');
 
@@ -452,7 +501,7 @@ export const codigoPostalSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('codigos_postais')
+        .from('codigo_postal')
         .insert([codigoData])
         .select()
         .single();
@@ -473,7 +522,7 @@ export const codigoPostalSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('codigos_postais')
+        .from('codigo_postal')
         .update(codigoData)
         .eq('cod_postal', codigo)
         .select()
@@ -495,7 +544,7 @@ export const codigoPostalSupabaseService = {
 
     try {
       const { error } = await supabase
-        .from('codigos_postais')
+        .from('codigo_postal')
         .delete()
         .eq('cod_postal', codigo);
 

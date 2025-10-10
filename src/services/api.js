@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { API_BASE_URL, MOCK_DATA, delay } from '../config/database';
+import { isSupabaseConfigured } from '../config/supabase';
+import * as supabaseServices from './supabaseService';
 
 // Configuração do axios
 const api = axios.create({
@@ -45,10 +47,19 @@ const useMockData = () => {
   return !process.env.REACT_APP_API_URL || process.env.REACT_APP_API_URL === 'mock';
 };
 
+// Função para verificar se devemos usar Supabase
+const useSupabase = () => {
+  return isSupabaseConfigured() && process.env.REACT_APP_API_URL !== 'mock';
+};
+
 // Serviços para Livros
 export const livroService = {
   // Buscar todos os livros
   getAll: async (filtros = {}) => {
+    if (useSupabase()) {
+      return supabaseServices.livroSupabaseService.getAll(filtros);
+    }
+    
     if (useMockData()) {
       await delay(500); // Simular delay de rede
       let livros = [...MOCK_DATA.livros];
@@ -71,6 +82,10 @@ export const livroService = {
 
   // Buscar livro por ID
   getById: async (id) => {
+    if (useSupabase()) {
+      return supabaseServices.livroSupabaseService.getById(id);
+    }
+    
     if (useMockData()) {
       await delay(300);
       const livro = MOCK_DATA.livros.find(l => l.li_cod === parseInt(id));
@@ -82,6 +97,10 @@ export const livroService = {
 
   // Criar novo livro
   create: async (livroData) => {
+    if (useSupabase()) {
+      return supabaseServices.livroSupabaseService.create(livroData);
+    }
+    
     if (useMockData()) {
       await delay(800);
       const novoLivro = {
@@ -99,6 +118,10 @@ export const livroService = {
 
   // Atualizar livro
   update: async (id, livroData) => {
+    if (useSupabase()) {
+      return supabaseServices.livroSupabaseService.update(id, livroData);
+    }
+    
     if (useMockData()) {
       await delay(600);
       const index = MOCK_DATA.livros.findIndex(l => l.li_cod === parseInt(id));
@@ -114,6 +137,10 @@ export const livroService = {
 
   // Deletar livro
   delete: async (id) => {
+    if (useSupabase()) {
+      return supabaseServices.livroSupabaseService.delete(id);
+    }
+    
     if (useMockData()) {
       await delay(400);
       const index = MOCK_DATA.livros.findIndex(l => l.li_cod === parseInt(id));
@@ -265,6 +292,10 @@ export const emprestimoService = {
 // Serviços para Estatísticas
 export const statsService = {
   getDashboardStats: async () => {
+    if (useSupabase()) {
+      return supabaseServices.statsSupabaseService.getDashboardStats();
+    }
+    
     if (useMockData()) {
       await delay(300);
       const stats = {

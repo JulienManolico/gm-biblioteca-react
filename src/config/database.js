@@ -1,7 +1,13 @@
 // Configuração do banco de dados para React
-// Como React é frontend, vamos usar uma API mock ou conectar com um backend
+// Suporte para Supabase, API externa ou mock data
 
 export const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+
+// Configurações do Supabase
+export const SUPABASE_CONFIG = {
+  url: process.env.REACT_APP_SUPABASE_URL,
+  anonKey: process.env.REACT_APP_SUPABASE_ANON_KEY,
+};
 
 // Configurações do banco (para referência - será usado pelo backend)
 export const DB_CONFIG = {

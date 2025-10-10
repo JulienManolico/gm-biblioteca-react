@@ -9,10 +9,17 @@
   # Versão do Node.js
   NODE_VERSION = "18"
   
-  # Variáveis de ambiente
+  # Variáveis de ambiente da aplicação
   REACT_APP_APP_NAME = "GMBiblioteca"
   REACT_APP_VERSION = "1.0.0"
   REACT_APP_ENVIRONMENT = "production"
+  
+  # Configurações do Supabase (serão definidas no painel do Netlify)
+  # REACT_APP_SUPABASE_URL = "https://seu-projeto.supabase.co"
+  # REACT_APP_SUPABASE_ANON_KEY = "sua-chave-anonima-aqui"
+  
+  # URL da API (use 'mock' para dados de exemplo)
+  REACT_APP_API_URL = "mock"
 
 # Redirecionamentos para SPA (Single Page Application)
 [[redirects]]

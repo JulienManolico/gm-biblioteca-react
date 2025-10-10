@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Layout from './components/Layout/Layout';
@@ -30,35 +30,11 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  // Debug: Log das variáveis de ambiente
-  useEffect(() => {
-    console.log('🔍 Debug - Variáveis de ambiente:');
-    console.log('REACT_APP_SUPABASE_URL:', process.env.REACT_APP_SUPABASE_URL);
-    console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
-    console.log('REACT_APP_SUPABASE_ANON_KEY configurada:', !!process.env.REACT_APP_SUPABASE_ANON_KEY);
-  }, []);
-
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <Router>
           <div className="App">
-            {/* Debug info - remover depois */}
-            <div style={{
-              position: 'fixed',
-              top: '10px',
-              right: '10px',
-              background: 'rgba(0,0,0,0.8)',
-              color: 'white',
-              padding: '10px',
-              borderRadius: '5px',
-              fontSize: '12px',
-              zIndex: 9999
-            }}>
-              <div>Supabase: {process.env.REACT_APP_SUPABASE_URL ? '✅' : '❌'}</div>
-              <div>API: {process.env.REACT_APP_API_URL || 'N/A'}</div>
-            </div>
-            
             <Layout>
               <Routes>
               {/* Rotas principais */}

@@ -1,28 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null, errorInfo: null };
+    this.state = { hasError: false };
   }
 
   static getDerivedStateFromError(error) {
-    // Atualiza o state para mostrar a UI de erro
     return { hasError: true };
   }
 
   componentDidCatch(error, errorInfo) {
-    // Log do erro
     console.error('ErrorBoundary capturou um erro:', error, errorInfo);
-    this.setState({
-      error: error,
-      errorInfo: errorInfo
-    });
   }
 
   render() {
     if (this.state.hasError) {
-      // UI de erro personalizada
       return (
         <div style={{ 
           padding: '20px', 
@@ -34,23 +27,6 @@ class ErrorBoundary extends React.Component {
         }}>
           <h2>🚨 Erro na Aplicação</h2>
           <p>Algo deu errado. Verifique o console para mais detalhes.</p>
-          
-          <details style={{ marginTop: '10px' }}>
-            <summary>Detalhes do Erro</summary>
-            <pre style={{ 
-              marginTop: '10px', 
-              padding: '10px', 
-              backgroundColor: '#f8f9fa', 
-              borderRadius: '4px',
-              fontSize: '12px',
-              overflow: 'auto'
-            }}>
-              {this.state.error && this.state.error.toString()}
-              <br />
-              {this.state.errorInfo.componentStack}
-            </pre>
-          </details>
-          
           <button 
             onClick={() => window.location.reload()} 
             style={{

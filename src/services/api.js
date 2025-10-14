@@ -158,6 +158,10 @@ export const livroService = {
 // Serviços para Autores
 export const autorService = {
   getAll: async () => {
+    if (useSupabase()) {
+      return supabaseServices.autorSupabaseService.getAll();
+    }
+    
     if (useMockData()) {
       await delay(300);
       return { data: MOCK_DATA.autores };
@@ -182,6 +186,10 @@ export const autorService = {
 // Serviços para Editoras
 export const editoraService = {
   getAll: async () => {
+    if (useSupabase()) {
+      return supabaseServices.editoraSupabaseService.getAll();
+    }
+    
     if (useMockData()) {
       await delay(300);
       return { data: MOCK_DATA.editoras };
@@ -206,6 +214,10 @@ export const editoraService = {
 // Serviços para Gêneros
 export const generoService = {
   getAll: async () => {
+    if (useSupabase()) {
+      return supabaseServices.generoSupabaseService.getAll();
+    }
+    
     if (useMockData()) {
       await delay(200);
       return { data: MOCK_DATA.generos };
@@ -228,6 +240,10 @@ export const generoService = {
 // Serviços para Utentes
 export const utenteService = {
   getAll: async () => {
+    if (useSupabase()) {
+      return supabaseServices.utenteSupabaseService.getAll();
+    }
+    
     if (useMockData()) {
       await delay(300);
       return { data: MOCK_DATA.utentes };
@@ -252,6 +268,10 @@ export const utenteService = {
 // Serviços para Empréstimos
 export const emprestimoService = {
   getAll: async () => {
+    if (useSupabase()) {
+      return supabaseServices.emprestimoSupabaseService.getAll();
+    }
+    
     if (useMockData()) {
       await delay(400);
       return { data: MOCK_DATA.emprestimos };

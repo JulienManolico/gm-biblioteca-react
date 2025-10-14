@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaBars, FaSearch, FaBell, FaUser, FaCog } from 'react-icons/fa';
+import { FaBars, FaSearch, FaBell, FaUser, FaCog, FaBook } from 'react-icons/fa';
 
 const TopNavbar = ({ onToggleSidebar }) => {
   const [searchQuery, setSearchQuery] = useState('');

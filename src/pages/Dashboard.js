@@ -59,7 +59,7 @@ const Dashboard = () => {
     setSearchResults([]);
   };
 
-  const livros = searchResults.length > 0 ? searchResults : (livrosData?.data || []);
+  const livros = searchResults.length > 0 ? searchResults : (Array.isArray(livrosData?.data) ? livrosData.data : []);
 
   return (
     <div className="fade-in">

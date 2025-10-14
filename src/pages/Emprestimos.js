@@ -43,7 +43,7 @@ const Emprestimos = () => {
     }
   };
 
-  const emprestimos = emprestimosData?.data || [];
+  const emprestimos = Array.isArray(emprestimosData?.data) ? emprestimosData.data : [];
 
   if (error) {
     return (

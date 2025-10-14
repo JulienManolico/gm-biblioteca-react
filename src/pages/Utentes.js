@@ -41,7 +41,7 @@ const Utentes = () => {
     }
   };
 
-  const utentes = utentesData?.data || [];
+  const utentes = Array.isArray(utentesData?.data) ? utentesData.data : [];
 
   if (error) {
     return (

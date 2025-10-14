@@ -37,7 +37,7 @@ const Generos = () => {
     }
   };
 
-  const generos = generosData?.data || [];
+  const generos = Array.isArray(generosData?.data) ? generosData.data : [];
 
   if (error) {
     return (

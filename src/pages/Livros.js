@@ -61,7 +61,7 @@ const Livros = () => {
     setFiltroDisponibilidade('');
   };
 
-  const livros = livrosData?.data || [];
+  const livros = Array.isArray(livrosData?.data) ? livrosData.data : [];
 
   if (error) {
     return (

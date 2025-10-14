@@ -37,7 +37,7 @@ const CodigoPostal = () => {
     }
   };
 
-  const codigos = codigosData?.data || [];
+  const codigos = Array.isArray(codigosData?.data) ? codigosData.data : [];
 
   if (error) {
     return (

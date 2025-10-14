@@ -41,7 +41,7 @@ const Editoras = () => {
     }
   };
 
-  const editoras = editorasData?.data || [];
+  const editoras = Array.isArray(editorasData?.data) ? editorasData.data : [];
 
   if (error) {
     return (

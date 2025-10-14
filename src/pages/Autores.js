@@ -45,7 +45,7 @@ const Autores = () => {
     // A busca é automática via useQuery
   };
 
-  const autores = autoresData?.data || [];
+  const autores = Array.isArray(autoresData?.data) ? autoresData.data : [];
 
   if (error) {
     return (

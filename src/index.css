@@ -32,7 +32,7 @@ code {
 }
 
 .sidebar .nav-link {
-  color: rgba(255, 255, 255, 0.8);
+  color: white;
   padding: 12px 20px;
   border-radius: 0;
   transition: all 0.3s ease;
@@ -214,40 +214,118 @@ code {
 
 /* Dropdown menu styles */
 .nav-item-dropdown button {
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
 .nav-item-dropdown button:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
   color: white !important;
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item-dropdown button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.nav-item-dropdown button:hover:before {
+  left: 100%;
 }
 
 .nav-link-sub {
-  padding: 8px 20px !important;
+  padding: 10px 20px !important;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7) !important;
-  border-left: 2px solid transparent;
-  transition: all 0.3s ease;
+  color: white !important;
+  border-left: 3px solid transparent;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
 .nav-link-sub:hover,
 .nav-link-sub.active {
   color: white !important;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-left: 2px solid #fff;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-left: 3px solid #fff;
+  transform: translateX(8px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link-sub:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.4s;
+}
+
+.nav-link-sub:hover:before {
+  left: 100%;
 }
 
 .nav-item-dropdown ul {
-  animation: slideDown 0.3s ease-out;
+  animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top;
 }
 
 @keyframes slideDown {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-15px) scaleY(0.8);
+    max-height: 0;
   }
-  to {
+  50% {
+    opacity: 0.7;
+    transform: translateY(-5px) scaleY(0.9);
+  }
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scaleY(1);
+    max-height: 200px;
   }
+}
+
+/* Adicionar efeito de brilho nos ícones */
+.nav-item-dropdown button svg,
+.nav-link svg {
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+}
+
+.nav-item-dropdown button:hover svg,
+.nav-link:hover svg {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+  transform: scale(1.1);
+}
+
+/* Footer da sidebar */
+.sidebar-footer {
+  color: white;
+  font-size: 0.85rem;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+}
+
+.sidebar-footer p {
+  margin: 0;
+  color: white;
+  opacity: 0.9;
+}
+
+.sidebar-footer small {
+  color: white;
+  opacity: 0.7;
 }

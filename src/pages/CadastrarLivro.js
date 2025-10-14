@@ -203,7 +203,7 @@ const CadastrarLivro = () => {
                 {...register('li_autor', { required: 'Autor é obrigatório' })}
               >
                 <option value="">Selecione um autor</option>
-                {autoresData?.data?.map((autor) => (
+                {autoresData?.data && Array.isArray(autoresData.data) && autoresData.data.map((autor) => (
                   <option key={autor.au_cod} value={autor.au_cod}>
                     {autor.au_nome}
                   </option>
@@ -233,7 +233,7 @@ const CadastrarLivro = () => {
                 {...register('li_editora', { required: 'Editora é obrigatória' })}
               >
                 <option value="">Selecione uma editora</option>
-                {editorasData?.data?.map((editora) => (
+                {editorasData?.data && Array.isArray(editorasData.data) && editorasData.data.map((editora) => (
                   <option key={editora.ed_cod} value={editora.ed_cod}>
                     {editora.ed_nome}
                   </option>
@@ -265,7 +265,7 @@ const CadastrarLivro = () => {
                 {...register('li_genero', { required: 'Gênero é obrigatório' })}
               >
                 <option value="">Selecione um gênero</option>
-                {generosData?.data?.map((genero) => (
+                {generosData?.data && Array.isArray(generosData.data) && generosData.data.map((genero) => (
                   <option key={genero} value={genero}>
                     {genero}
                   </option>

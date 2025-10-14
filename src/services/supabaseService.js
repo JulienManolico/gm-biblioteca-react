@@ -104,7 +104,7 @@ export const livroSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('livros')
+        .from('livro')
         .insert([livroData])
         .select()
         .single();
@@ -126,7 +126,7 @@ export const livroSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('livros')
+        .from('livro')
         .update(livroData)
         .eq('li_cod', id)
         .select()
@@ -149,7 +149,7 @@ export const livroSupabaseService = {
 
     try {
       const { error } = await supabase
-        .from('livros')
+        .from('livro')
         .delete()
         .eq('li_cod', id);
 
@@ -390,7 +390,7 @@ export const emprestimoSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('emprestimos')
+        .from('requisicao')
         .insert([emprestimoData])
         .select()
         .single();
@@ -411,12 +411,11 @@ export const emprestimoSupabaseService = {
 
     try {
       const { data, error } = await supabase
-        .from('emprestimos')
+        .from('requisicao')
         .update({ 
-          em_devolvido: true,
-          em_data_devolucao: new Date().toISOString().split('T')[0]
+          re_data_devolucao: new Date().toISOString().split('T')[0]
         })
-        .eq('em_cod', id)
+        .eq('re_cod', id)
         .select()
         .single();
 

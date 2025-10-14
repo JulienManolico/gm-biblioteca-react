@@ -9,8 +9,11 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('⚠️ Variáveis do Supabase não configuradas. Usando mock data.');
 }
 
-// Criar cliente do Supabase
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Criar cliente do Supabase com valores padrão para evitar erros de build
+export const supabase = createClient(
+  supabaseUrl || 'https://placeholder.supabase.co',
+  supabaseAnonKey || 'placeholder-key'
+);
 
 // Função para verificar se o Supabase está configurado
 export const isSupabaseConfigured = () => {

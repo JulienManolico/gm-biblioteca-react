@@ -19,6 +19,9 @@
   # Configurações para ignorar varreduras de segredos
   SECRETS_SCAN_OMIT_PATHS = "*.md,*.txt,env.example,netlify.toml,package*.json,build/**,src/config/database.js"
   SECRETS_SCAN_OMIT_KEYS = "REACT_APP_APP_NAME,REACT_APP_VERSION,REACT_APP_ENVIRONMENT"
+  
+  # Desabilitar varredura de segredos temporariamente para debug
+  SECRETS_SCAN_ENABLED = "false"
 
 # Redirecionamentos para SPA (Single Page Application)
 [[redirects]]

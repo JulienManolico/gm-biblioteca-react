@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   FaHome, 
@@ -10,10 +10,21 @@ import {
   FaExchangeAlt,
   FaMapMarkerAlt,
   FaBars,
-  FaTimes
+  FaTimes,
+  FaChevronDown,
+  FaChevronRight
 } from 'react-icons/fa';
 
 const Sidebar = ({ isOpen, onToggle }) => {
+  const [openMenus, setOpenMenus] = useState({});
+
+  const toggleMenu = (menuKey) => {
+    setOpenMenus(prev => ({
+      ...prev,
+      [menuKey]: !prev[menuKey]
+    }));
+  };
+
   const menuItems = [
     {
       path: '/dashboard',
@@ -123,29 +134,44 @@ const Sidebar = ({ isOpen, onToggle }) => {
             {menuItems.map((item, index) => (
               <li key={index} className="nav-item">
                 {item.submenu ? (
-                  // Item com submenu
+                  // Item com submenu (dropdown)
                   <div className="nav-item-dropdown">
-                    <NavLink
-                      to={item.path}
-                      className="nav-link d-flex align-items-center"
-                      activeClassName="active"
+                    <button
+                      className="nav-link d-flex align-items-center justify-content-between w-100"
+                      onClick={() => toggleMenu(item.label)}
+                      style={{ 
+                        background: 'none', 
+                        border: 'none', 
+                        textAlign: 'left',
+                        padding: '0.5rem 1rem',
+                        color: 'inherit'
+                      }}
                     >
-                      <item.icon className="me-2" />
-                      {item.label}
-                    </NavLink>
-                    <ul className="nav flex-column ms-4">
-                      {item.submenu.map((subItem, subIndex) => (
-                        <li key={subIndex} className="nav-item">
-                          <NavLink
-                            to={subItem.path}
-                            className="nav-link nav-link-sub"
-                            activeClassName="active"
-                          >
-                            {subItem.label}
-                          </NavLink>
-                        </li>
-                      ))}
-                    </ul>
+                      <div className="d-flex align-items-center">
+                        <item.icon className="me-2" />
+                        {item.label}
+                      </div>
+                      {openMenus[item.label] ? (
+                        <FaChevronDown className="ms-auto" />
+                      ) : (
+                        <FaChevronRight className="ms-auto" />
+                      )}
+                    </button>
+                    {openMenus[item.label] && (
+                      <ul className="nav flex-column ms-4">
+                        {item.submenu.map((subItem, subIndex) => (
+                          <li key={subIndex} className="nav-item">
+                            <NavLink
+                              to={subItem.path}
+                              className="nav-link nav-link-sub"
+                              activeClassName="active"
+                            >
+                              {subItem.label}
+                            </NavLink>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 ) : (
                   // Item simples

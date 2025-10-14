@@ -148,7 +148,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
                       }}
                     >
                       <div className="d-flex align-items-center">
-                        <item.icon className="me-2" />
+                        {React.createElement(item.icon, { className: "me-2" })}
                         {item.label}
                       </div>
                       {openMenus[item.label] ? (
@@ -164,7 +164,6 @@ const Sidebar = ({ isOpen, onToggle }) => {
                             <NavLink
                               to={subItem.path}
                               className="nav-link nav-link-sub"
-                              activeClassName="active"
                             >
                               {subItem.label}
                             </NavLink>
@@ -178,10 +177,9 @@ const Sidebar = ({ isOpen, onToggle }) => {
                   <NavLink
                     to={item.path}
                     className="nav-link d-flex align-items-center"
-                    activeClassName="active"
-                    exact={item.exact}
+                    end={item.exact}
                   >
-                    <item.icon className="me-2" />
+                    {React.createElement(item.icon, { className: "me-2" })}
                     {item.label}
                   </NavLink>
                 )}

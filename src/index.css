@@ -32,10 +32,14 @@ code {
 }
 
 .sidebar .nav-link {
-  color: white;
+  color: white !important;
   padding: 12px 20px;
   border-radius: 0;
   transition: all 0.3s ease;
+}
+
+.sidebar .nav-link * {
+  color: white !important;
 }
 
 .sidebar .nav-link:hover,
@@ -217,6 +221,11 @@ code {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  color: white !important;
+}
+
+.nav-item-dropdown button * {
+  color: white !important;
 }
 
 .nav-item-dropdown button:hover {
@@ -328,4 +337,26 @@ code {
 .sidebar-footer small {
   color: white;
   opacity: 0.7;
+}
+
+/* Forçar texto branco em todos os elementos da sidebar */
+.sidebar,
+.sidebar * {
+  color: white !important;
+}
+
+.sidebar .nav-item,
+.sidebar .nav-item * {
+  color: white !important;
+}
+
+.sidebar button,
+.sidebar button * {
+  color: white !important;
+}
+
+/* Garantir que os ícones também sejam brancos */
+.sidebar svg {
+  color: white !important;
+  fill: white !important;
 }

@@ -95,110 +95,38 @@ const Sidebar = ({ isOpen, onToggle }) => {
 
   return (
     <>
-      {/* Overlay para mobile */}
-      {isOpen && (
-        <div 
-          className="sidebar-overlay d-md-none" 
-          onClick={onToggle}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.5)',
-            zIndex: 1040
-          }}
-        />
-      )}
-      
-      {/* Sidebar */}
-      <nav className={`sidebar ${isOpen ? 'show' : ''}`}>
-        {/* Header da Sidebar */}
-        <div className="sidebar-header d-flex justify-content-between align-items-center p-3">
-          <h4 className="text-white mb-0">
-            <FaBook className="me-2" />
-            GMBiblioteca
-          </h4>
-          <button 
-            className="btn btn-link text-white d-md-none"
-            onClick={onToggle}
-          >
-            <FaTimes />
-          </button>
+      {/* Navegação horizontal simplificada */}
+      <nav className="horizontal-nav" aria-label="Navegação principal">
+        <div className="nav-section">
+          <NavLink to="/dashboard" className="nav-item">
+            🏠 Inicial
+          </NavLink>
+          <NavLink to="/livros" className="nav-item">
+            📖 Livros
+          </NavLink>
+          <NavLink to="/emprestimos" className="nav-item">
+            📋 Empréstimos
+          </NavLink>
         </div>
-
-        {/* Menu de Navegação */}
-        <div className="sidebar-menu">
-          <ul className="nav flex-column">
-            {menuItems.map((item, index) => (
-              <li key={index} className="nav-item">
-                {item.submenu ? (
-                  // Item com submenu (dropdown)
-                  <div className="nav-item-dropdown">
-                    <button
-                      className="nav-link d-flex align-items-center justify-content-between w-100"
-                      onClick={() => toggleMenu(item.label)}
-                      style={{ 
-                        background: 'none', 
-                        border: 'none', 
-                        textAlign: 'left',
-                        padding: '0.5rem 1rem',
-                        color: 'inherit'
-                      }}
-                    >
-                      <div className="d-flex align-items-center">
-                        {React.createElement(item.icon, { className: "me-2" })}
-                        {item.label}
-                      </div>
-                      {openMenus[item.label] ? (
-                        <FaChevronDown className="ms-auto" />
-                      ) : (
-                        <FaChevronRight className="ms-auto" />
-                      )}
-                    </button>
-                    {openMenus[item.label] && (
-                      <ul className="nav flex-column ms-4">
-                        {item.submenu.map((subItem, subIndex) => (
-                          <li key={subIndex} className="nav-item">
-                            <NavLink
-                              to={subItem.path}
-                              className="nav-link nav-link-sub"
-                            >
-                              {subItem.label}
-                            </NavLink>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ) : (
-                  // Item simples
-                  <NavLink
-                    to={item.path}
-                    className="nav-link d-flex align-items-center"
-                    end={item.exact}
-                  >
-                    {React.createElement(item.icon, { className: "me-2" })}
-                    {item.label}
-                  </NavLink>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Footer da Sidebar */}
-        <div className="sidebar-footer p-3 mt-auto">
-          <div className="text-center">
-            <small className="text-white-50">
-              Sistema de Gestão de Biblioteca
-            </small>
-            <br />
-            <small className="text-white-50">
-              © 2024 GMBiblioteca
-            </small>
-          </div>
+        
+        <div className="nav-divider"></div>
+        
+        <div className="nav-section">
+          <NavLink to="/autores/cadastrar" className="nav-item">
+            👤 Autor
+          </NavLink>
+          <NavLink to="/editoras/cadastrar" className="nav-item">
+            🏢 Editora
+          </NavLink>
+          <NavLink to="/generos/cadastrar" className="nav-item">
+            🏷️ Gênero
+          </NavLink>
+          <NavLink to="/codigo-postal/cadastrar" className="nav-item">
+            📍 CEP
+          </NavLink>
+          <NavLink to="/utentes/cadastrar" className="nav-item">
+            👥 Utente
+          </NavLink>
         </div>
       </nav>
     </>

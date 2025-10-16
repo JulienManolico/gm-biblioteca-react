@@ -10,14 +10,14 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="d-flex">
-      {/* Sidebar */}
-      <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
+    <div className="App">
+      {/* Top Navbar */}
+      <TopNavbar onToggleSidebar={toggleSidebar} />
       
       {/* Main Content */}
-      <div className="main-content flex-grow-1">
-        {/* Top Navbar */}
-        <TopNavbar onToggleSidebar={toggleSidebar} />
+      <div className="main-content">
+        {/* Sidebar Horizontal */}
+        <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
         
         {/* Page Content */}
         <div className="content-wrapper">

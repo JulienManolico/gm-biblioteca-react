@@ -63,20 +63,14 @@ const Dashboard = () => {
 
   return (
     <div className="fade-in">
-      {/* Header com ações rápidas */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h1 className="h3 mb-1">Dashboard</h1>
-          <p className="text-muted mb-0">Visão geral do sistema de biblioteca</p>
-        </div>
-        <div className="d-flex gap-2">
-          <Link to="/livros/cadastrar" className="btn btn-primary">
-            <FaPlus className="me-2" />
-            Adicionar Livro
+      {/* Ações Rápidas */}
+      <div className="mb-3">
+        <div className="d-flex justify-content-center gap-2">
+          <Link to="/livros/cadastrar" className="btn">
+            ➕ Adicionar Livro
           </Link>
-          <Link to="/livros" className="btn btn-outline-primary">
-            <FaBook className="me-2" />
-            Ver Todos os Livros
+          <Link to="/livros" className="btn">
+            📖 Ver Todos os Livros
           </Link>
         </div>
       </div>
@@ -170,39 +164,39 @@ const Dashboard = () => {
       )}
 
       {/* Lista de livros */}
-      <div className="row">
-        <div className="col-12">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h2>
+      <div className="container mt-4">
+        <div className="row">
+          <div className="col-12">
+            <h2 className="mb-4">
               {searchResults.length > 0 ? (
                 <>
                   Resultados para "{searchQuery}"
-                  <span className="badge bg-primary ms-2">{searchResults.length} encontrado(s)</span>
+                  <span className="badge bg-primary">{searchResults.length} encontrado(s)</span>
                 </>
               ) : (
                 'Nossos Livros'
               )}
             </h2>
           </div>
+        </div>
 
-          {livrosLoading ? (
-            <div className="loading-spinner">
-              <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Carregando...</span>
+        {livrosLoading ? (
+          <div className="loading-spinner">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Carregando...</span>
+            </div>
+          </div>
+        ) : livros.length === 0 ? (
+          <div className="row">
+            <div className="col-12">
+              <div className="alert alert-info text-center">
+                <i className="fas fa-info-circle fa-2x mb-3"></i>
+                <h4>Nenhum livro encontrado</h4>
+                <p>{searchResults.length > 0 ? 'Tente uma busca diferente ou ' : ''}<Link to="/livros/cadastrar">cadastre um novo livro</Link></p>
               </div>
             </div>
-          ) : livros.length === 0 ? (
-            <div className="alert alert-info text-center">
-              <FaBook className="fa-2x mb-3" />
-              <h4>Nenhum livro encontrado</h4>
-              <p>
-                {searchResults.length > 0 ? (
-                  'Tente uma busca diferente ou '
-                ) : ''}
-                <Link to="/livros/cadastrar">cadastre um novo livro</Link>
-              </p>
-            </div>
-          ) : (
+          </div>
+        ) : (
             <div className="row">
               {livros.map((livro) => (
                 <div key={livro.li_cod} className="col-md-4 col-lg-3 mb-4">
@@ -247,14 +241,13 @@ const Dashboard = () => {
           )}
 
           {!searchResults.length && livrosData?.data && livrosData.data.length > 8 && (
-            <div className="text-center mt-3">
+            <div className="text-center mt-2">
               <Link to="/livros" className="btn btn-primary">
-                <FaBook className="me-2" />
-                Ver todos os livros
+                <i className="fas fa-book"></i> Ver todos os livros
               </Link>
             </div>
           )}
-        </div>
+        )}
       </div>
     </div>
   );
